@@ -1,0 +1,49 @@
+<link href="http://js-grid.com/css/jsgrid.css" rel="stylesheet" />
+<link href="http://js-grid.com/css/jsgrid-theme.css" rel="stylesheet" />
+
+<div id="jsGrid"></div>
+
+<script src="http://code.jquery.com/jquery-1.11.3.js"></script>
+<script src="http://js-grid.com/js/jsgrid.js"></script>
+<script>
+    $(function() {
+
+        $("#jsGrid").jsGrid({
+            height: "50%",
+            width: "100%",
+
+            filtering: true,
+            inserting: true,
+            editing: true,
+            sorting: true,
+            paging: true,
+            autoload: true,
+
+            pageSize: 10,
+            pageButtonCount: 5,
+
+            deleteConfirm: "Do you really want to delete client?",
+
+            controller: {
+                loadData: function(filter) {
+                    return $.ajax({
+                      type: "GET",
+                      url: "/lista_clientes",
+                      data: filter,
+                      dataType: "json"
+                    });
+                }
+            },
+
+            fields: [
+                { name: "Name", type: "text", width: 150 },
+                { name: "Age", type: "text", width: 150 },
+                { name: "Country", type: "text", width: 150 },
+                { type: "control" }
+            ]
+        });
+
+    });
+</script>
+<HTML>
+</HTML>
